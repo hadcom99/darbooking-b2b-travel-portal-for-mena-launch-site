@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DarBooking — Book Hotels 70% Faster, MENA-First</title>
-<meta name="description" content="Instant access to 2M+ global properties with Arabic-native UX, wallet settlement, and margins you control — no contracts.">
+<title>DarBooking — Book Hotels 70% Faster for Agencies</title>
 <style>
 :root {
   --color-primary:    #0A0E1A;
@@ -37,7 +36,6 @@ body {
 h1, h2, h3, h4 { font-family: var(--font-headline); line-height: 1.15; font-weight: 800; }
 
 a { color: inherit; text-decoration: none; }
-ul { list-style: none; }
 
 .container {
   max-width: 1200px;
@@ -45,15 +43,17 @@ ul { list-style: none; }
   padding-inline: clamp(1rem, 5vw, 2.5rem);
 }
 
-section { padding-block: clamp(5rem, 10vw, 9rem); }
-
-/* ANIMATIONS */
 @keyframes fadeInUp {
   from { opacity: 1; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* BUTTONS */
+.fade { animation: fadeInUp 0.5s ease-out both; }
+.d1 { animation-delay: 0.1s; }
+.d2 { animation-delay: 0.2s; }
+.d3 { animation-delay: 0.3s; }
+
+/* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -69,23 +69,23 @@ section { padding-block: clamp(5rem, 10vw, 9rem); }
 }
 .btn-primary {
   background: var(--color-accent);
-  color: #05221a;
+  color: #04120C;
   box-shadow: 0 0 40px color-mix(in srgb, var(--color-accent) 20%, transparent);
 }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 55px color-mix(in srgb, var(--color-accent) 35%, transparent); }
 .btn-ghost {
   background: transparent;
-  color: var(--color-text);
   border: 1px solid var(--color-border);
+  color: var(--color-text);
 }
-.btn-ghost:hover { border-color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, transparent); }
+.btn-ghost:hover { border-color: var(--color-accent); }
 
-a:focus-visible, button:focus-visible {
+.btn:focus-visible, a:focus-visible, button:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 
-/* HEADER */
+/* ---------- Header ---------- */
 header {
   position: sticky;
   top: 0;
@@ -96,19 +96,19 @@ header {
   transition: var(--transition);
 }
 header.scrolled {
-  border-bottom: 1px solid var(--color-border);
   background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  border-bottom: 1px solid var(--color-border);
 }
 .nav-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  padding-block: 1rem;
 }
 .logo {
   font-family: var(--font-headline);
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   letter-spacing: -0.02em;
 }
 .logo span { color: var(--color-accent); }
@@ -116,8 +116,9 @@ header.scrolled {
   display: none;
   align-items: center;
   gap: 2rem;
+  list-style: none;
 }
-.nav-links a { color: var(--color-muted); font-size: 0.9rem; transition: var(--transition); }
+.nav-links a { color: var(--color-muted); font-size: 0.92rem; transition: var(--transition); }
 .nav-links a:hover { color: var(--color-text); }
 
 .hamburger {
@@ -127,22 +128,18 @@ header.scrolled {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 6px;
+  padding: 0.4rem;
 }
-.hamburger span {
-  width: 24px; height: 2px;
-  background: var(--color-text);
-  border-radius: 2px;
-}
+.hamburger span { width: 24px; height: 2px; background: var(--color-text); border-radius: 2px; }
 
-/* MOBILE DRAWER */
+/* Mobile drawer */
 .drawer {
   display: none;
   position: fixed;
   top: 0; right: 0;
-  width: min(80vw, 320px);
   height: 100vh;
-  background: var(--color-secondary);
+  width: min(80vw, 320px);
+  background: var(--color-primary);
   border-left: 1px solid var(--color-border);
   z-index: 200;
   padding: 2rem 1.5rem;
@@ -150,54 +147,51 @@ header.scrolled {
   gap: 1.5rem;
 }
 body.nav-open .drawer { display: flex; }
-body.nav-open .drawer-overlay { display: block; }
-.drawer-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
+.drawer a { color: var(--color-text); font-size: 1.1rem; }
+.drawer-close {
+  align-self: flex-end;
+  background: none; border: none; color: var(--color-text);
+  font-size: 1.8rem; cursor: pointer; line-height: 1;
+}
+.drawer-backdrop { display: none; }
+body.nav-open .drawer-backdrop {
+  display: block;
+  position: fixed; inset: 0;
   background: rgba(0,0,0,0.6);
   z-index: 150;
 }
-.drawer a { font-size: 1.1rem; color: var(--color-text); }
-.drawer-close {
-  align-self: flex-end;
-  background: none; border: none;
-  color: var(--color-text);
-  font-size: 1.8rem; cursor: pointer;
-  line-height: 1;
+
+@media (min-width: 860px) {
+  .nav-links { display: flex; }
+  .hamburger { display: none; }
 }
 
-/* HERO */
+/* ---------- Hero ---------- */
 .hero {
+  position: relative;
   min-height: 90vh;
   display: flex;
   align-items: center;
-  position: relative;
-  overflow: hidden;
   text-align: center;
+  padding-block: clamp(4rem, 10vw, 7rem);
+  overflow: hidden;
 }
 .hero::before {
   content: "";
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 80% 50% at 20% 0%, color-mix(in srgb, var(--color-accent) 15%, transparent) 0%, transparent 70%),
-    radial-gradient(ellipse 70% 60% at 85% 20%, color-mix(in srgb, var(--color-secondary) 60%, transparent) 0%, transparent 70%);
+    radial-gradient(ellipse 60% 50% at 85% 30%, color-mix(in srgb, var(--color-secondary) 45%, transparent) 0%, transparent 70%);
   pointer-events: none;
 }
 .hero-shape {
   position: absolute;
-  right: -100px; top: 40%;
-  width: 400px; height: 400px;
+  top: 15%; right: -5%;
+  width: 320px; height: 320px;
   opacity: 1;
   pointer-events: none;
 }
-.hero-content {
-  max-width: 900px;
-  margin-inline: auto;
-  position: relative;
-  z-index: 1;
-}
+.hero-inner { position: relative; max-width: 900px; margin-inline: auto; }
 .badge {
   display: inline-block;
   padding: 0.4rem 1rem;
@@ -207,38 +201,28 @@ body.nav-open .drawer-overlay { display: block; }
   color: var(--color-accent);
   font-size: 0.85rem;
   font-weight: 500;
-  margin-bottom: 1.5rem;
-  animation: fadeInUp 0.5s ease-out both;
+  margin-bottom: 1.75rem;
 }
-.hero h1 {
-  font-size: clamp(2.75rem, 6vw, 5rem);
-  letter-spacing: -0.03em;
-  margin-bottom: 1.25rem;
-  animation: fadeInUp 0.5s ease-out both;
-  animation-delay: 0.1s;
-}
+.hero h1 { font-size: clamp(2.75rem, 6vw, 5rem); letter-spacing: -0.03em; }
 .hero p.sub {
   font-size: clamp(1.05rem, 2vw, 1.3rem);
   color: var(--color-muted);
   max-width: 640px;
-  margin: 0 auto 2.25rem;
-  animation: fadeInUp 0.5s ease-out both;
-  animation-delay: 0.2s;
+  margin: 1.5rem auto 2.5rem;
 }
-.hero-ctas {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  animation: fadeInUp 0.5s ease-out both;
-  animation-delay: 0.3s;
-}
+.hero-cta { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-/* SOCIAL PROOF */
+/* ---------- Section base ---------- */
+section { padding-block: clamp(5rem, 10vw, 9rem); }
+.section-head { text-align: center; max-width: 700px; margin: 0 auto 3.5rem; }
+.section-head h2 { font-size: clamp(2rem, 4vw, 2.5rem); letter-spacing: -0.02em; }
+.section-head p { color: var(--color-muted); margin-top: 1rem; }
+
+/* ---------- Social Proof ---------- */
 .proof {
   background: var(--color-surface);
   border-block: 1px solid var(--color-border);
-  padding-block: 2.5rem;
+  padding-block: 2rem;
 }
 .proof-inner {
   display: flex;
@@ -247,61 +231,46 @@ body.nav-open .drawer-overlay { display: block; }
   align-items: center;
   text-align: center;
 }
-.proof-stat { color: var(--color-muted); font-size: 0.9rem; }
-.proof-logos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem 2rem;
-  justify-content: center;
-}
+.proof-stat { color: var(--color-muted); font-size: 0.95rem; max-width: 420px; }
+.proof-logos { display: flex; flex-wrap: wrap; gap: 1.25rem 2rem; justify-content: center; align-items: center; }
 .proof-logos span {
   font-family: var(--font-headline);
   font-weight: 700;
   font-size: 1.05rem;
-  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+  color: color-mix(in srgb, var(--color-text) 75%, transparent);
+}
+@media (min-width: 860px) {
+  .proof-inner { flex-direction: row; justify-content: space-between; text-align: left; }
+  .proof-stat { text-align: left; }
 }
 
-/* PROBLEM SOLUTION */
-.section-head { text-align: center; margin-bottom: 3rem; }
-.section-head h2 { font-size: clamp(2rem, 4vw, 2.5rem); letter-spacing: -0.02em; }
-.ps-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-}
+/* ---------- Cards / Glass ---------- */
 .glass {
   background: color-mix(in srgb, var(--color-bg) 70%, transparent);
   backdrop-filter: blur(12px);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 2.5rem;
+  padding: 2rem;
 }
-.card-label {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-.card-label.prob { color: #ff7a8a; }
-.card-label.sol { color: var(--color-accent); }
-.glass h3 { font-size: 1.4rem; margin-bottom: 1.5rem; }
-.glass ul li {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-  padding-block: 0.6rem;
-  color: var(--color-muted);
-}
-.glass ul li svg { flex-shrink: 0; margin-top: 0.3rem; }
 
-/* FEATURES */
+/* Problem / Solution */
+.ps-grid { display: grid; gap: 1.5rem; }
+@media (min-width: 860px) { .ps-grid { grid-template-columns: 1fr 1fr; } }
+.ps-card h3 { font-size: 1.5rem; margin-bottom: 1.5rem; }
+.ps-card ul { list-style: none; display: grid; gap: 1rem; }
+.ps-card li { display: flex; gap: 0.75rem; color: var(--color-muted); align-items: flex-start; }
+.ps-icon { flex-shrink: 0; width: 22px; height: 22px; margin-top: 2px; }
+.ps-problem .ps-icon { color: #ff6b6b; }
+.ps-solution .ps-icon { color: var(--color-accent); }
+.ps-solution { border-color: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+
+/* Features */
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
-.feature-card {
+.feature {
   background: color-mix(in srgb, var(--color-bg) 70%, transparent);
   backdrop-filter: blur(12px);
   border: 1px solid var(--color-border);
@@ -309,23 +278,19 @@ body.nav-open .drawer-overlay { display: block; }
   padding: 2rem;
   transition: var(--transition);
 }
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-  border-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
-}
+.feature:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); border-color: color-mix(in srgb, var(--color-accent) 30%, transparent); }
 .feature-icon {
   width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius);
-  display: grid; place-items: center;
   background: color-mix(in srgb, var(--color-accent) 12%, transparent);
   color: var(--color-accent);
   margin-bottom: 1.25rem;
 }
-.feature-card h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
-.feature-card p { color: var(--color-muted); font-size: 0.95rem; }
+.feature h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+.feature p { color: var(--color-muted); font-size: 0.95rem; }
 
-/* METRICS */
+/* Metrics band */
 .metrics {
   background: var(--color-secondary);
   position: relative;
@@ -334,116 +299,91 @@ body.nav-open .drawer-overlay { display: block; }
 .metrics::before {
   content: "";
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 80% at 50% 0%, color-mix(in srgb, var(--color-accent) 15%, transparent) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 60% at 50% 0%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 70%);
+  pointer-events: none;
 }
 .metrics-grid {
   position: relative;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem 1.5rem;
+  gap: 2rem;
   text-align: center;
 }
-.metric-val {
-  font-family: var(--font-headline);
-  font-weight: 800;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: var(--color-accent);
-  letter-spacing: -0.02em;
-}
-.metric-label { color: var(--color-muted); font-size: 0.95rem; }
+@media (min-width: 860px) { .metrics-grid { grid-template-columns: repeat(4, 1fr); } }
+.metric .val { font-family: var(--font-headline); font-weight: 800; font-size: clamp(2.5rem, 5vw, 4rem); color: var(--color-accent); }
+.metric .lbl { color: var(--color-muted); font-size: 0.95rem; margin-top: 0.4rem; }
 
-/* HOW IT WORKS */
-.steps { display: flex; flex-direction: column; gap: 2rem; }
+/* How it works */
+.steps { display: grid; gap: 2.5rem; }
 .step {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-}
-.step-num {
-  flex-shrink: 0;
-  width: 48px; height: 48px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  color: #05221a;
-  display: grid; place-items: center;
-  font-family: var(--font-headline);
-  font-weight: 800;
-  font-size: 1.2rem;
-}
-.step h3 { font-size: 1.2rem; margin-bottom: 0.4rem; }
-.step p { color: var(--color-muted); font-size: 0.95rem; }
-
-/* TESTIMONIALS */
-.tgrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: auto 1fr;
   gap: 1.5rem;
-}
-.tcard {
-  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
+  align-items: start;
   position: relative;
 }
+.step-num {
+  width: 52px; height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+  color: var(--color-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-headline);
+  font-weight: 800;
+  font-size: 1.3rem;
+  z-index: 2;
+}
+.step:not(:last-child) .step-num::after {
+  content: "";
+  position: absolute;
+  left: 25px; top: 52px;
+  width: 2px; height: calc(100% + 2.5rem - 52px);
+  background: linear-gradient(var(--color-border), transparent);
+}
+.step h3 { font-size: 1.25rem; margin-bottom: 0.4rem; }
+.step p { color: var(--color-muted); }
+
+/* Testimonials */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.testi { position: relative; }
 .quote-mark {
   font-family: var(--font-headline);
-  font-size: 3.5rem;
+  font-size: 4rem;
+  line-height: 0.6;
   color: var(--color-accent);
-  line-height: 0.7;
-  height: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
 }
-.tcard blockquote { color: var(--color-text); font-size: 1.05rem; margin-bottom: 1.5rem; }
-.tauthor { display: flex; align-items: center; gap: 0.9rem; }
+.testi blockquote { color: var(--color-text); font-size: 1.02rem; margin-bottom: 1.5rem; }
+.testi-person { display: flex; align-items: center; gap: 0.85rem; }
 .avatar {
   width: 44px; height: 44px;
   border-radius: 50%;
-  background: var(--color-secondary);
-  border: 1px solid var(--color-border);
-  display: grid; place-items: center;
+  background: color-mix(in srgb, var(--color-accent) 18%, transparent);
+  color: var(--color-accent);
+  display: flex; align-items: center; justify-content: center;
   font-family: var(--font-headline);
   font-weight: 700;
-  color: var(--color-accent);
   font-size: 0.9rem;
 }
-.tauthor .name { font-weight: 600; font-size: 0.95rem; }
-.tauthor .role { color: var(--color-muted); font-size: 0.85rem; }
+.testi-person .name { font-weight: 600; font-size: 0.95rem; }
+.testi-person .role { color: var(--color-muted); font-size: 0.82rem; }
 
-/* FINAL CTA */
-.final {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-.final::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 100%, color-mix(in srgb, var(--color-accent) 18%, transparent) 0%, transparent 70%);
-}
-.final-inner { position: relative; max-width: 700px; margin-inline: auto; }
-.final h2 { font-size: clamp(2rem, 5vw, 3.25rem); margin-bottom: 1rem; letter-spacing: -0.02em; }
-.final p { color: var(--color-muted); margin-bottom: 2rem; font-size: 1.1rem; }
-
-/* NEWSLETTER */
+/* Newsletter */
 .newsletter { background: var(--color-surface); border-block: 1px solid var(--color-border); }
-.news-inner { max-width: 640px; margin-inline: auto; text-align: center; }
-.news-inner h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); margin-bottom: 0.75rem; }
-.news-inner p { color: var(--color-muted); margin-bottom: 2rem; }
-.news-form {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  justify-content: center;
+.newsletter-inner { max-width: 620px; margin-inline: auto; text-align: center; }
+.newsletter-form {
+  display: flex; gap: 0.75rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center;
 }
-.news-form input {
-  flex: 1 1 240px;
-  padding: 0.75rem 1.25rem;
+.newsletter-form input {
+  flex: 1; min-width: 220px;
+  padding: 0.8rem 1.25rem;
   border-radius: 9999px;
   border: 1px solid var(--color-border);
   background: color-mix(in srgb, var(--color-bg) 60%, transparent);
@@ -451,130 +391,112 @@ body.nav-open .drawer-overlay { display: block; }
   font-family: var(--font-body);
   font-size: 0.95rem;
 }
-.news-form input::placeholder { color: var(--color-muted); }
-.news-form input:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.newsletter-form input:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 
-/* ABOUT / BLOG */
-.about-grid, .blog-grid {
+/* About */
+.about-inner { max-width: 760px; margin-inline: auto; }
+.about-inner p { color: var(--color-muted); margin-top: 1rem; }
+
+/* Blog */
+.blog-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
 }
-.about-text p { color: var(--color-muted); margin-bottom: 1rem; }
-.about-text h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 1.5rem; }
-.blog-card {
-  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-  transition: var(--transition);
-}
+.blog-card { transition: var(--transition); cursor: pointer; }
 .blog-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--color-accent) 30%, transparent); }
-.blog-card .tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent); font-weight: 600; }
-.blog-card h3 { font-size: 1.2rem; margin: 0.75rem 0; }
-.blog-card p { color: var(--color-muted); font-size: 0.9rem; }
-.blog-card .readmore { color: var(--color-accent); font-size: 0.9rem; font-weight: 600; display: inline-block; margin-top: 1rem; }
+.blog-card .tag { color: var(--color-accent); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.blog-card h3 { font-size: 1.2rem; margin: 0.6rem 0; }
+.blog-card p { color: var(--color-muted); font-size: 0.92rem; }
+.blog-card .meta { color: var(--color-muted); font-size: 0.82rem; margin-top: 1rem; }
 
-/* FOOTER */
-footer {
-  background: var(--color-primary);
-  border-top: 1px solid var(--color-border);
-  padding-block: 4rem 2rem;
+/* Final CTA */
+.final-cta {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  position: relative;
+  overflow: hidden;
+  text-align: center;
 }
-.footer-top {
+.final-cta::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, color-mix(in srgb, var(--color-accent) 20%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.final-cta-inner { position: relative; max-width: 700px; margin-inline: auto; }
+.final-cta h2 { font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -0.02em; }
+.final-cta p { color: var(--color-muted); margin: 1rem 0 2.25rem; font-size: 1.1rem; }
+
+/* Footer */
+footer { border-top: 1px solid var(--color-border); padding-block: 4rem 2rem; }
+.footer-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
-  margin-bottom: 3rem;
 }
-.footer-brand .logo { margin-bottom: 1rem; }
-.footer-brand p { color: var(--color-muted); font-size: 0.9rem; max-width: 260px; }
-.footer-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-.footer-col h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
-.footer-col a { display: block; color: var(--color-muted); font-size: 0.9rem; padding-block: 0.35rem; transition: var(--transition); }
+@media (min-width: 700px) { .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+.footer-brand p { color: var(--color-muted); font-size: 0.9rem; margin-top: 0.75rem; max-width: 260px; }
+.footer-col h4 { font-size: 0.95rem; margin-bottom: 1rem; }
+.footer-col ul { list-style: none; display: grid; gap: 0.6rem; }
+.footer-col a { color: var(--color-muted); font-size: 0.9rem; transition: var(--transition); }
 .footer-col a:hover { color: var(--color-text); }
 .footer-bottom {
+  display: flex; flex-wrap: wrap; gap: 1.5rem;
+  justify-content: space-between; align-items: center;
+  margin-top: 3rem; padding-top: 2rem;
   border-top: 1px solid var(--color-border);
-  padding-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: center;
-  text-align: center;
 }
-.footer-bottom .copy { color: var(--color-muted); font-size: 0.85rem; }
+.footer-bottom p { color: var(--color-muted); font-size: 0.85rem; }
 .socials { display: flex; gap: 1rem; }
-.socials a {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  border: 1px solid var(--color-border);
-  display: grid; place-items: center;
-  color: var(--color-muted);
-  transition: var(--transition);
-}
-.socials a:hover { color: var(--color-accent); border-color: var(--color-accent); }
-
-/* DESKTOP */
-@media (min-width: 768px) {
-  .nav-links { display: flex; }
-  .hamburger { display: none; }
-  .ps-grid { grid-template-columns: 1fr 1fr; }
-  .metrics-grid { grid-template-columns: repeat(4, 1fr); }
-  .proof-inner { flex-direction: row; justify-content: space-between; text-align: left; }
-  .tgrid { grid-template-columns: repeat(3, 1fr); }
-  .steps { gap: 1.5rem; }
-  .step:nth-child(even) { flex-direction: row-reverse; text-align: right; }
-  .about-grid { grid-template-columns: 1fr 1fr; align-items: center; }
-  .blog-grid { grid-template-columns: repeat(3, 1fr); }
-  .footer-top { grid-template-columns: 1.5fr 2fr; }
-  .footer-cols { grid-template-columns: repeat(3, 1fr); }
-  .footer-bottom { flex-direction: row; justify-content: space-between; }
-}
+.socials a { color: var(--color-muted); transition: var(--transition); }
+.socials a:hover { color: var(--color-accent); }
 </style>
 </head>
 <body>
 
 <header id="header">
   <div class="container nav-inner">
-    <a href="#top" class="logo">Dar<span>·</span>Booking</a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="#about">About</a>
-      <a href="#blog">Blog</a>
-      <a href="#cta" class="btn btn-primary">Get early access</a>
+    <a href="#top" class="logo">Dar<span>Booking</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#cta" class="btn btn-primary">Get early access</a></li>
+      </ul>
     </nav>
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <button class="hamburger" id="openNav" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<div class="drawer-overlay" id="overlay"></div>
-<aside class="drawer" id="drawer" aria-label="Mobile menu">
-  <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<nav class="drawer" id="drawer" aria-label="Mobile">
+  <button class="drawer-close" id="closeNav" aria-label="Close menu">&times;</button>
   <a href="#features">Features</a>
   <a href="#how">How it works</a>
   <a href="#about">About</a>
   <a href="#blog">Blog</a>
   <a href="#newsletter">Newsletter</a>
   <a href="#cta" class="btn btn-primary">Get early access</a>
-</aside>
+</nav>
 
 <main id="top">
 
   <!-- HERO -->
   <section class="hero">
-    <svg class="hero-shape" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="100" cy="100" r="90" fill="none" stroke="#00E5A0" stroke-width="1"/>
-      <circle cx="100" cy="100" r="60" fill="none" stroke="#00E5A0" stroke-width="1"/>
-      <circle cx="100" cy="100" r="30" fill="none" stroke="#00E5A0" stroke-width="1"/>
+    <svg class="hero-shape" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+      <circle cx="100" cy="100" r="80" stroke="var(--color-accent)" stroke-width="1"/>
+      <circle cx="100" cy="100" r="55" stroke="var(--color-accent)" stroke-width="1"/>
+      <rect x="45" y="45" width="110" height="110" rx="16" stroke="var(--color-border)" stroke-width="1" transform="rotate(20 100 100)"/>
     </svg>
-    <div class="container hero-content">
-      <span class="badge">Early access open for MENA agencies</span>
-      <h1>Book hotels 70% faster</h1>
-      <p class="sub">Instant access to 2M+ global properties with Arabic-native UX, wallet settlement, and margins you control — no contracts.</p>
-      <div class="hero-ctas">
+    <div class="container hero-inner">
+      <span class="badge fade">Early access open for MENA agencies</span>
+      <h1 class="fade d1">Book hotels 70% faster</h1>
+      <p class="sub fade d2">Instant access to 2M+ global properties with Arabic-native UX, wallet settlement, and margin control — no supplier contracts.</p>
+      <div class="hero-cta fade d3">
         <a href="#cta" class="btn btn-primary">Get early access</a>
         <a href="#how" class="btn btn-ghost">See how it works</a>
       </div>
@@ -582,9 +504,9 @@ footer {
   </section>
 
   <!-- SOCIAL PROOF -->
-  <section class="proof" aria-label="Social proof">
+  <section class="proof" style="padding-block:2rem;">
     <div class="container proof-inner">
-      <p class="proof-stat">Aggregating Hotelbeds, TBO &amp; RateHawk for MENA agencies</p>
+      <p class="proof-stat">Aggregating inventory from Hotelbeds, TBO, and RateHawk in one platform</p>
       <div class="proof-logos">
         <span>Hotelbeds</span>
         <span>TBO</span>
@@ -596,43 +518,23 @@ footer {
   </section>
 
   <!-- PROBLEM / SOLUTION -->
-  <section>
+  <section id="problem">
     <div class="container">
       <div class="ps-grid">
-        <div class="glass">
-          <p class="card-label prob">The Problem</p>
+        <div class="glass ps-card ps-problem">
           <h3>Enterprise bedbanks weren't built for your agency</h3>
           <ul>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff7a8a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              I wait weeks for contracts and minimums I can't hit
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff7a8a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              My team fights an English-only interface built for someone else
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff7a8a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              I lose margin on every booking with no way to set my own markup
-            </li>
+            <li><svg class="ps-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>I wait weeks negotiating supplier contracts before I can book a single room</li>
+            <li><svg class="ps-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>I fight English-only tools that ignore my currency and bank-transfer settlement</li>
+            <li><svg class="ps-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>I lose margin because I can't set my own markups per client tier</li>
           </ul>
         </div>
-        <div class="glass">
-          <p class="card-label sol">The Solution</p>
-          <h3>One signup, 2M+ hotels, your rules</h3>
+        <div class="glass ps-card ps-solution">
+          <h3>One signup, 2M+ hotels, full margin control</h3>
           <ul>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Go live in one day — no supplier contracts, no monthly minimums
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Work in native Arabic RTL with DZD, TND, MAD, and EGP wallets
-            </li>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00E5A0" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Set Bronze/Silver/Gold markups and keep every dinar of margin
-            </li>
+            <li><svg class="ps-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Register once and book across three major suppliers in a single day</li>
+            <li><svg class="ps-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Work in Arabic RTL with DZD, TND, MAD, and EGP wallet settlement</li>
+            <li><svg class="ps-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>Set Bronze, Silver, and Gold markups to protect profit on every booking</li>
           </ul>
         </div>
       </div>
@@ -643,36 +545,37 @@ footer {
   <section id="features">
     <div class="container">
       <div class="section-head">
-        <h2>Built for how MENA agencies actually work</h2>
+        <h2>Built for agencies, not enterprises</h2>
+        <p>Everything you need to book faster and protect your margin — in one platform.</p>
       </div>
       <div class="features-grid">
-        <article class="feature-card">
+        <article class="feature">
           <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
           </div>
-          <h3>Skip weeks of negotiation</h3>
-          <p>Onboard once and reach Hotelbeds, TBO, and RateHawk inventory in a single day. No enterprise contracts, no booking minimums.</p>
+          <h3>Skip weeks of contracts</h3>
+          <p>Onboard in one day instead of weeks of enterprise negotiation. Get instant Hotelbeds, TBO, and RateHawk inventory with no minimums.</p>
         </article>
-        <article class="feature-card">
+        <article class="feature">
           <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
           </div>
-          <h3>Sell in native Arabic</h3>
-          <p>Full RTL Arabic interface built for MENA workflows, not translated as an afterthought. Settle in DZD, TND, MAD, or EGP via bank transfer.</p>
+          <h3>Book natively in Arabic</h3>
+          <p>Full RTL interface plus DZD, TND, MAD, and EGP multi-currency wallets. Settle by bank transfer, which global platforms won't support.</p>
         </article>
-        <article class="feature-card">
+        <article class="feature">
           <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
           </div>
           <h3>Control margin per tier</h3>
           <p>Configure Bronze, Silver, and Gold markups with per-supplier optimization. Agencies see an estimated +2-5% EBITDA lift on every booking.</p>
         </article>
-        <article class="feature-card">
+        <article class="feature">
           <div class="feature-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
           </div>
-          <h3>Search 2M+ hotels instantly</h3>
-          <p>Cloud-native search scales from 1 to 1,000+ bookings a month without slowing down. Roughly one-tenth the cost of direct bedbank integration.</p>
+          <h3>Scale from 1 to 1,000 bookings</h3>
+          <p>Cloud-native search handles growth without adding cost. Pay roughly one-tenth of direct bedbank integration pricing.</p>
         </article>
       </div>
     </div>
@@ -680,133 +583,143 @@ footer {
 
   <!-- METRICS -->
   <section class="metrics">
-    <div class="container metrics-grid">
-      <div><div class="metric-val">70%</div><div class="metric-label">faster booking flow</div></div>
-      <div><div class="metric-val">2M+</div><div class="metric-label">global properties</div></div>
-      <div><div class="metric-val">+2-5%</div><div class="metric-label">EBITDA lift per booking</div></div>
-      <div><div class="metric-val">1 day</div><div class="metric-label">onboarding to live</div></div>
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric"><div class="val">70%</div><div class="lbl">Faster booking flow</div></div>
+        <div class="metric"><div class="val">2.1M+</div><div class="lbl">Global hotel properties</div></div>
+        <div class="metric"><div class="val">+2-5%</div><div class="lbl">EBITDA lift per booking</div></div>
+        <div class="metric"><div class="val">1 day</div><div class="lbl">Full onboarding time</div></div>
+      </div>
     </div>
   </section>
 
   <!-- HOW IT WORKS -->
   <section id="how">
     <div class="container">
-      <div class="section-head"><h2>How it works</h2></div>
+      <div class="section-head">
+        <h2>How it works</h2>
+        <p>From signup to your first booking in a single day.</p>
+      </div>
       <div class="steps">
         <div class="step">
           <div class="step-num">1</div>
-          <div><h3>Register your agency</h3><p>Complete a single form to open your account. No supplier paperwork or technical integration required.</p></div>
+          <div><h3>Register your agency</h3><p>Complete one signup form to open your account. No supplier contracts, no minimum volume commitments.</p></div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div><h3>Fund your wallet</h3><p>Top up by local bank transfer in DZD, TND, MAD, or EGP. Balance settles instantly for booking.</p></div>
+          <div><h3>Fund your wallet</h3><p>Top up by bank transfer in your local currency. Settle bookings instantly from your DZD, TND, MAD, or EGP balance.</p></div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
-          <div><h3>Set your markups</h3><p>Configure tiered margins for Bronze, Silver, and Gold clients. Adjust per-supplier rules whenever you want.</p></div>
+          <div><h3>Set your markups</h3><p>Configure Bronze, Silver, and Gold margin tiers per client. Optimize profit down to the supplier level.</p></div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
-          <div><h3>Search and book</h3><p>Query 2M+ properties across three suppliers in one view. Confirm bookings 70% faster than legacy platforms.</p></div>
+          <div><h3>Search and book instantly</h3><p>Access 2M+ properties across three suppliers in one search. Confirm bookings 70% faster than legacy tools.</p></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
-  <section>
+  <section id="testimonials">
     <div class="container">
-      <div class="section-head"><h2>Agencies already moving faster</h2></div>
-      <div class="tgrid">
-        <article class="tcard">
-          <div class="quote-mark">&ldquo;</div>
-          <blockquote>We cut average booking time from 9 minutes to under 3, and added 4% margin on every reservation.</blockquote>
-          <div class="tauthor">
+      <div class="section-head">
+        <h2>Trusted by agencies across the region</h2>
+        <p>Real results from teams booking faster with DarBooking.</p>
+      </div>
+      <div class="testi-grid">
+        <figure class="glass testi">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>We cut our booking time by 68% and added roughly 4% margin per reservation in the first month.</blockquote>
+          <div class="testi-person">
             <div class="avatar">YB</div>
-            <div><div class="name">Yacine Belkacem</div><div class="role">Founder, Sahara Voyages</div></div>
+            <div><div class="name">Yacine Belkacem</div><div class="role">Owner, Sahara Voyages</div></div>
           </div>
-        </article>
-        <article class="tcard">
-          <div class="quote-mark">&ldquo;</div>
+        </figure>
+        <figure class="glass testi">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
           <blockquote>Onboarding took one afternoon instead of the six weeks our old bedbank quoted us.</blockquote>
-          <div class="tauthor">
-            <div class="avatar">AT</div>
-            <div><div class="name">Amira Trabelsi</div><div class="role">Operations Manager, Carthage Travel</div></div>
+          <div class="testi-person">
+            <div class="avatar">AB</div>
+            <div><div class="name">Amira Ben Salah</div><div class="role">Operations Manager, Carthage Travel</div></div>
           </div>
-        </article>
-        <article class="tcard">
-          <div class="quote-mark">&ldquo;</div>
-          <blockquote>Arabic RTL and DZD wallet settlement mean my team books 40% more per day without switching tools.</blockquote>
-          <div class="tauthor">
-            <div class="avatar">KO</div>
-            <div><div class="name">Karim Ouazzani</div><div class="role">General Manager, Atlas Tours Maroc</div></div>
+        </figure>
+        <figure class="glass testi">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote>Arabic RTL and dinar wallet settlement mean my team stopped losing 3 hours a day on manual reconciliation.</blockquote>
+          <div class="testi-person">
+            <div class="avatar">KE</div>
+            <div><div class="name">Khalid El Mansouri</div><div class="role">Managing Director, Atlas Tours MA</div></div>
           </div>
-        </article>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- ABOUT -->
-  <section id="about">
-    <div class="container about-grid">
-      <div class="about-text">
+  <section id="about" class="proof">
+    <div class="container about-inner">
+      <div class="section-head" style="margin-bottom:1.5rem;">
         <h2>About DarBooking</h2>
-        <p>DarBooking is a MENA-first hotel booking platform that aggregates the world's largest bedbanks — Hotelbeds, TBO, and RateHawk — into one Arabic-native interface built for regional travel agencies.</p>
-        <p>We started because the tools available to agencies in Algeria, Tunisia, Morocco, and Egypt were built for someone else: English-only, contract-heavy, and margin-blind. We're changing that with local currency wallets, tiered markups, and one-day onboarding.</p>
       </div>
-      <div class="glass">
-        <h3>Our mission</h3>
-        <p style="color:var(--color-muted);margin-top:0.75rem;">Give every MENA travel agency instant, contract-free access to global inventory — priced, localized, and margined on their own terms.</p>
-      </div>
+      <p>DarBooking was founded to fix a problem enterprise bedbanks ignored: MENA travel agencies deserve modern tooling built for how they actually work — in Arabic, in local currency, and without months of contract negotiation.</p>
+      <p>We aggregate inventory from the world's leading suppliers into a single, RTL-native platform with wallet settlement and full margin control. Our mission is simple: help agencies book faster, protect their profit, and scale without the overhead of legacy integrations.</p>
+      <p>Today we're opening early access to agencies across Algeria, Tunisia, Morocco, and Egypt — with more markets to follow.</p>
     </div>
   </section>
 
   <!-- BLOG -->
   <section id="blog">
     <div class="container">
-      <div class="section-head"><h2>From the blog</h2></div>
+      <div class="section-head">
+        <h2>From the blog</h2>
+        <p>Insights on travel tech, margin strategy, and booking faster.</p>
+      </div>
       <div class="blog-grid">
-        <article class="blog-card">
+        <article class="glass blog-card">
+          <span class="tag">Strategy</span>
+          <h3>How agencies recover 2-5% margin per booking</h3>
+          <p>A practical breakdown of tiered markups and per-supplier optimization for consistent profit.</p>
+          <div class="meta">6 min read · Margin</div>
+        </article>
+        <article class="glass blog-card">
           <span class="tag">Product</span>
-          <h3>Why RTL matters more than translation</h3>
-          <p>Building an Arabic booking experience means more than swapping words — it means rethinking the whole flow.</p>
-          <a href="#blog" class="readmore">Read more →</a>
+          <h3>Why Arabic-native UX changes everything</h3>
+          <p>RTL, local currency wallets, and bank-transfer settlement — the details global platforms miss.</p>
+          <div class="meta">4 min read · UX</div>
         </article>
-        <article class="blog-card">
-          <span class="tag">Growth</span>
-          <h3>How margin tiers boost EBITDA</h3>
-          <p>Bronze, Silver, Gold — how per-tier markups let agencies keep an estimated +2-5% on every booking.</p>
-          <a href="#blog" class="readmore">Read more →</a>
-        </article>
-        <article class="blog-card">
+        <article class="glass blog-card">
           <span class="tag">Operations</span>
-          <h3>From six weeks to one afternoon</h3>
-          <p>The onboarding story of Carthage Travel and what fast go-live means for cash flow.</p>
-          <a href="#blog" class="readmore">Read more →</a>
+          <h3>One-day onboarding vs six-week contracts</h3>
+          <p>What actually slows agencies down when adopting a new bedbank — and how to skip it.</p>
+          <div class="meta">5 min read · Ops</div>
         </article>
       </div>
     </div>
   </section>
 
   <!-- NEWSLETTER -->
-  <section class="newsletter" id="newsletter">
-    <div class="container news-inner">
-      <h2>Stay in the loop</h2>
-      <p>Get MENA travel insights and DarBooking updates. No spam, unsubscribe anytime.</p>
-      <form class="news-form" onsubmit="return false;">
-        <label for="news-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Email address</label>
-        <input id="news-email" type="email" placeholder="you@agency.com" required>
+  <section id="newsletter" class="newsletter">
+    <div class="container newsletter-inner">
+      <div class="section-head" style="margin-bottom:0;">
+        <h2>Stay ahead of the market</h2>
+        <p>Monthly insights on booking speed, margin strategy, and MENA travel tech. No spam.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="return false;">
+        <label for="nl-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Email address</label>
+        <input type="email" id="nl-email" placeholder="you@agency.com" required>
         <button type="submit" class="btn btn-primary">Subscribe</button>
       </form>
     </div>
   </section>
 
   <!-- FINAL CTA -->
-  <section class="final" id="cta">
-    <div class="container final-inner">
-      <h2>Claim your spot before competitors do</h2>
-      <p>No credit card. No supplier contracts. Go live in one day.</p>
-      <a href="#newsletter" class="btn btn-primary">Get early access</a>
+  <section id="cta" class="final-cta">
+    <div class="container final-cta-inner">
+      <h2>Start booking 70% faster than competitors</h2>
+      <p>No contracts. No minimums. One-day onboarding.</p>
+      <a href="#top" class="btn btn-primary">Get early access</a>
     </div>
   </section>
 
@@ -814,64 +727,62 @@ footer {
 
 <footer>
   <div class="container">
-    <div class="footer-top">
+    <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#top" class="logo">Dar<span>·</span>Booking</a>
-        <p>MENA-first hotel booking. 2M+ properties, Arabic-native, margins you control.</p>
+        <a href="#top" class="logo">Dar<span>Booking</span></a>
+        <p>Instant access to 2M+ hotels for MENA agencies — Arabic-native, with wallet settlement and margin control.</p>
       </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h4>Product</h4>
-          <a href="#features">Features</a>
-          <a href="#how">How it works</a>
-          <a href="#cta">Early access</a>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a href="#about">About</a>
-          <a href="#blog">Blog</a>
-          <a href="#newsletter">Newsletter</a>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Security</a>
-        </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#cta">Early access</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="copy">© 2024 DarBooking. All rights reserved.</p>
+      <p>© 2024 DarBooking. All rights reserved.</p>
       <div class="socials">
-        <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.05h.05c.53-1 1.83-2.05 3.76-2.05 4.02 0 4.76 2.65 4.76 6.1V23h-4v-6.9c0-1.64-.03-3.75-2.29-3.75-2.29 0-2.64 1.79-2.64 3.63V23h-4V8z"/></svg></a>
-        <a href="#" aria-label="X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 1.5h3.68l-8.04 9.19L24 22.5h-7.4l-5.8-7.58-6.63 7.58H.49l8.6-9.83L0 1.5h7.59l5.24 6.93L18.9 1.5zm-1.29 18.79h2.04L6.49 3.6H4.3l13.31 16.69z"/></svg></a>
-        <a href="#" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 22.29 24 17.8 24 12.5 24 5.87 18.63.5 12 .5z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-11 8H5v8h3v-8zm.5-3.5A1.5 1.5 0 1 0 7 9a1.5 1.5 0 0 0 1.5-1.5zM19 12.5c0-2.3-1.5-3.5-3.3-3.5-1 0-1.9.5-2.2 1.2V9h-3v8h3v-4.3c0-.9.5-1.5 1.4-1.5.8 0 1.1.6 1.1 1.5V17h3v-4.5z"/></svg></a>
+        <a href="#" aria-label="X"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.1 8.1L23.2 22h-6.6l-5.2-6.8L5.4 22H2.3l7.6-8.7L1.1 2h6.8l4.7 6.2L18.9 2zm-1.2 18h1.8L7.4 3.9H5.5L17.7 20z"/></svg></a>
+        <a href="#" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7c-.1-.3-.5-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .6 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.6 5 .3.3.6.9.6 1.8v2.7c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></a>
       </div>
     </div>
   </div>
 </footer>
 
 <script>
-(function(){
   var header = document.getElementById('header');
-  window.addEventListener('scroll', function(){
+  window.addEventListener('scroll', function () {
     if (window.scrollY > 20) header.classList.add('scrolled');
     else header.classList.remove('scrolled');
   });
 
-  var body = document.body;
-  var ham = document.getElementById('hamburger');
-  var close = document.getElementById('drawerClose');
-  var overlay = document.getElementById('overlay');
-  function closeNav(){ body.classList.remove('nav-open'); ham.setAttribute('aria-expanded','false'); }
-  ham.addEventListener('click', function(){
-    body.classList.toggle('nav-open');
-    ham.setAttribute('aria-expanded', body.classList.contains('nav-open'));
-  });
-  close.addEventListener('click', closeNav);
-  overlay.addEventListener('click', closeNav);
-  document.querySelectorAll('#drawer a').forEach(function(a){ a.addEventListener('click', closeNav); });
-})();
+  var open = document.getElementById('openNav');
+  var close = document.getElementById('closeNav');
+  var backdrop = document.getElementById('drawerBackdrop');
+  function closeDrawer() { document.body.classList.remove('nav-open'); open.setAttribute('aria-expanded', 'false'); }
+  open.addEventListener('click', function () { document.body.classList.add('nav-open'); open.setAttribute('aria-expanded', 'true'); });
+  close.addEventListener('click', closeDrawer);
+  backdrop.addEventListener('click', closeDrawer);
+  document.querySelectorAll('.drawer a').forEach(function (a) { a.addEventListener('click', closeDrawer); });
 </script>
 
 </body>
